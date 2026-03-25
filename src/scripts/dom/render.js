@@ -50,8 +50,4 @@ export async function renderUsers(apiUrl) {
 
     usersSection.appendChild(userDiv);
   });
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b62ed25 (kkkkgaei)

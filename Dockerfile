@@ -1,3 +1,3 @@
 FROM nginx:latest
 
-COPY ./src /usr/share/nginx/html
+COPY ./dist /usr/share/nginx/html

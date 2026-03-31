@@ -1,34 +1,30 @@
+import axios from 'axios';
+
 // Busca a lista de usuários no servidor
 export async function getUsers(apiUrl) {
-  const response = await fetch(apiUrl); // GET por padrão
-  const data = await response.json();
-
-  // Erro se a lista não vier
-  if (!response.ok) {
-    throw new Error(data.error || 'Failed to fetch users');
+  try {
+    const response = await axios.get(apiUrl);
+    
+    return response.data.users; 
+  } catch (error) {
+    
+    const errorMessage = error.response?.data?.error || 'Failed to fetch users';
+    throw new Error(errorMessage);
   }
-
-  return data.users; // Retorna só a array de usuários
 }
 
 // Envia um novo usuário para o banco
 export async function createUser(apiUrl, { name, age, email }) {
-  const response = await fetch(apiUrl, {
-    method: 'POST', // POST = Criar
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
+  try {
+    const response = await axios.post(apiUrl, {
       name,
-      age: Number(age), // Garante que é número
+      age: Number(age),
       email
-    }),
-  });
+    });
 
-  const data = await response.json();
-
-  // Erro se a criação falhar
-  if (!response.ok) {
-    throw new Error(data.error || 'Failed to create user');
+    return response.data;
+  } catch (error) {
+    const errorMessage = error.response?.data?.error || 'Failed to create user';
+    throw new Error(errorMessage);
   }
-
-  return data;
 }
